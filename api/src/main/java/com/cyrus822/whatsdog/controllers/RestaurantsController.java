@@ -5,6 +5,7 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cyrus822.whatsdog.models.CustomError;
 import com.cyrus822.whatsdog.models.Restaurants;
 import com.cyrus822.whatsdog.repos.RestaurantsRepo;
-
 import jakarta.validation.Valid;
 
 @RestController
@@ -39,11 +39,21 @@ public class RestaurantsController {
     } 
     
     @PostMapping({"","/","/index"})
-    @PutMapping({"","/","/index"})
-    public Restaurants updSert(@RequestBody @Valid Restaurants newRestaurants, BindingResult errors) throws CustomError{
+    public Restaurants insert(@RequestBody @Valid Restaurants newRestaurants, BindingResult errors) throws CustomError{
         if(errors.hasErrors()){
             throw new CustomError(errors, null);
         }
         return repo.save(newRestaurants);
     }
+
+    @PutMapping("/{rid}")
+    public Restaurants update(@PathVariable("rid") Integer rId, @RequestBody @Valid Restaurants updRestaurants, BindingResult errors) throws CustomError{
+        if(!repo.findById(rId).isPresent()){
+            throw new CustomError(null, "Records with ID [" + rId + "] not found!");
+        }
+        if(errors.hasErrors()){
+            throw new CustomError(errors, null);
+        }
+        return repo.save(updRestaurants);
+    }    
 }
