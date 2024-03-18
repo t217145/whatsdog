@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${action} + ' Draw'"/>
+</head>
+<body>
+<div layout:fragment="customContent">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-2">
+            <a href="#" th:href="@{/index}" class="btn btn-primary">Draw again</a>         
+        </div>
+    </div>    
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <td th:text="${restaurantObj.name}" />
+        </tr>
+        <tr>
+            <th>Location</th>
+            <td th:text="${restaurantObj.location}" />
+        </tr>
+        <tr>
+            <th>Phone</th>
+            <td th:text="${restaurantObj.phone}" />
+        </tr>
+    </table>
+</div>
+</body>
+</html>

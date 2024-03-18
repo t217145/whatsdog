@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurants List</title>
+</head>
+<body>
+<section layout:fragment="customContent">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-2">
+            <a href="#" th:href="@{/create}" class="btn btn-primary">Create</a>         
+        </div>
+    </div>    
+    <table class="table table-striped">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Phone</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="restaurants : ${allRestaurants}">
+            <td th:text="${restaurants.id}" />
+            <td th:text="${restaurants.name}" />
+            <td th:text="${restaurants.location}" />
+            <td th:text="${restaurants.phone}" />
+            <td>
+                <a th:href="@{/edit/{id}(id = ${restaurants.id})}" class="btn btn-primary">Edit</a> &nbsp; | &nbsp;
+                <a th:href="@{/delete/{id}(id = ${restaurants.id})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    </table>
+</section>
+</body>
+</html>

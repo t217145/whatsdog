@@ -1,0 +1,9 @@
+docker run --name whatsdogDB -e MYSQL_ROOT_PASSWORD=whatsdog -e MYSQL_DATABASE=whatsdog -p 13306:3306 -itd mysql:8
+
+mvn clean package -D maven.test.skip=true
+
+az login --use-device-code
+az account set --subscription xxx-xxx
+az webapp deploy --resource-group whatsdog --name whatsdog --type jar --src-path ./target/whatsdog-1.0.jar
+
+mvn com.microsoft.azure:azure-spring-apps-maven-plugin:1.10.0:config
